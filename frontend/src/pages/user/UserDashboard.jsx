@@ -34,6 +34,8 @@ const UserDashboardLayout = () => {
     setCart(prev => prev.map(item => item._id === id ? { ...item, quantity: q } : item));
   };
 
+  const [showVendorMenu, setShowVendorMenu] = useState(false);
+
   return (
     <div className="bg-gray-300 p-6 flex flex-col h-full rounded border border-gray-400 items-center min-h-[600px]">
       <div className="bg-blue-600 text-white w-full max-w-4xl text-center py-2 mb-12 rounded shadow font-bold">
@@ -41,7 +43,25 @@ const UserDashboardLayout = () => {
       </div>
       
       <div className="flex justify-center gap-8 mb-12 w-full max-w-4xl text-center">
-        <Link to="/user/vendors" className="bg-blue-600 text-white px-8 py-2 rounded text-sm shadow hover:bg-blue-700">Vendor</Link>
+        <div className="relative">
+          <button 
+            onClick={() => setShowVendorMenu(!showVendorMenu)}
+            className="bg-blue-600 text-white px-4 py-2 rounded text-sm shadow hover:bg-blue-700 flex items-center justify-between w-32"
+          >
+            Vendor <span>▼</span>
+          </button>
+          
+          {showVendorMenu && (
+            <div className="absolute top-full mt-2 left-0 w-32 bg-blue-300 rounded shadow-lg flex flex-col text-sm text-black font-semibold border border-blue-400 z-50 text-left">
+              <Link to="/user/vendors" onClick={() => setShowVendorMenu(false)} className="px-3 py-2 hover:bg-blue-400 border-b border-blue-400">All</Link>
+              <Link to="/user/vendors?category=Catering" onClick={() => setShowVendorMenu(false)} className="px-3 py-2 hover:bg-blue-400">Catering</Link>
+              <Link to="/user/vendors?category=Florist" onClick={() => setShowVendorMenu(false)} className="px-3 py-2 hover:bg-blue-400">Florist</Link>
+              <Link to="/user/vendors?category=Decoration" onClick={() => setShowVendorMenu(false)} className="px-3 py-2 hover:bg-blue-400">Decoration</Link>
+              <Link to="/user/vendors?category=Lighting" onClick={() => setShowVendorMenu(false)} className="px-3 py-2 hover:bg-blue-400">Lighting</Link>
+            </div>
+          )}
+        </div>
+
         <Link to="/user/cart" className="bg-blue-600 text-white px-8 py-2 rounded text-sm shadow hover:bg-blue-700">
           Cart ({cart.reduce((a, b) => a + b.quantity, 0)})
         </Link>

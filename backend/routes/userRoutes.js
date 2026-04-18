@@ -52,7 +52,9 @@ router.post('/order', protect, async (req, res) => {
 // Get my orders
 router.get('/orders', protect, async (req, res) => {
   try {
-    const orders = await Order.find({ user: req.user._id }).populate('items.product');
+    const orders = await Order.find({ user: req.user._id })
+      .populate('items.product')
+      .populate('user', 'name email');
     res.json(orders);
   } catch (error) {
     res.status(500).json({ message: error.message });

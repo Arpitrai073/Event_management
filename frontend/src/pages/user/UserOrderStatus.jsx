@@ -46,8 +46,8 @@ const UserOrderStatus = () => {
          <div className="space-y-2">
             {orders.map(order => (
                <div key={order._id} className="grid grid-cols-4 items-center bg-white p-2 rounded border border-gray-300 shadow-sm text-center text-sm">
-                  <div className="font-semibold">{order.shippingAddress?.name || 'User'}</div>
-                  <div className="truncate px-1">{order.shippingAddress?.email || 'N/A'}</div>
+                  <div className="font-semibold">{order.shippingAddress?.name || order.user?.name || 'User'}</div>
+                  <div className="truncate px-1">{order.shippingAddress?.email || order.user?.email || 'N/A'}</div>
                   <div className="truncate px-1">{order.shippingAddress?.address}, {order.shippingAddress?.city}</div>
                   <div className="font-bold text-blue-700">{order.status}</div>
                </div>

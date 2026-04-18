@@ -3,6 +3,7 @@ import API from '../../api';
 
 const CartView = ({ cart, removeFromCart, updateQuantity, setCart }) => {
   const [checkingOut, setCheckingOut] = useState(false);
+  const [orderSuccess, setOrderSuccess] = useState(false);
   const [checkoutData, setCheckoutData] = useState({
     name: '', email: '', number: '', address: '', state: '', city: '', pinCode: '', paymentMethod: 'Cash'
   });
@@ -25,13 +26,48 @@ const CartView = ({ cart, removeFromCart, updateQuantity, setCart }) => {
         shippingAddress: checkoutData
       });
 
-      alert("THANK YOU! Order Placed Successfully.");
-      setCart([]);
-      setCheckingOut(false);
+      setOrderSuccess(true);
     } catch (error) {
       alert("Checkout failed");
     }
   };
+
+  const closeSuccessPopup = () => {
+    setCart([]);
+    setCheckingOut(false);
+    setOrderSuccess(false);
+  };
+
+  if (orderSuccess) {
+    return (
+      <div className="flex flex-col items-center w-full z-50">
+        <div className="bg-[#b5b5b5] p-8 rounded border border-gray-400 w-full max-w-md shadow-2xl text-center">
+            <h2 className="font-bold text-lg mb-6">THANK YOU</h2>
+            <div className="bg-[#4a72c4] text-white font-bold py-2 mb-8 rounded mx-8 shadow">
+               Total Amount: Rs. {grandTotal}/-
+            </div>
+            
+            <div className="grid grid-cols-2 gap-4 mb-8">
+               <div className="bg-[#4a72c4] text-white py-2 rounded shadow">{checkoutData.name}</div>
+               <div className="bg-[#4a72c4] text-white py-2 rounded shadow">{checkoutData.number}</div>
+               <div className="bg-[#4a72c4] text-white py-2 rounded shadow">{checkoutData.email}</div>
+               <div className="bg-[#4a72c4] text-white py-2 rounded shadow">{checkoutData.paymentMethod}</div>
+               <div className="bg-[#4a72c4] text-white py-2 rounded shadow">{checkoutData.address}</div>
+               <div className="bg-[#4a72c4] text-white py-2 rounded shadow">{checkoutData.state}</div>
+               <div className="bg-[#4a72c4] text-white py-2 rounded shadow">{checkoutData.city}</div>
+               <div className="bg-[#4a72c4] text-white py-2 rounded shadow">{checkoutData.pinCode}</div>
+            </div>
+            
+            <button 
+              onClick={closeSuccessPopup} 
+              className="bg-[#4a72c4] text-white px-8 py-2 rounded font-bold shadow-lg hover:bg-blue-700"
+            >
+              Continue Shopping
+            </button>
+         </div>
+      </div>
+    );
+  }
 
   if (checkingOut) {
     return (

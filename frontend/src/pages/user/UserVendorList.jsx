@@ -1,11 +1,13 @@
 import { useState, useEffect } from 'react';
-import { useNavigate } from 'react-router-dom';
+import { useNavigate, useSearchParams } from 'react-router-dom';
 import API from '../../api';
 
 const UserVendorList = () => {
   const [vendors, setVendors] = useState([]);
   const [loading, setLoading] = useState(true);
   const navigate = useNavigate();
+  const [searchParams] = useSearchParams();
+  const categoryQuery = searchParams.get('category');
 
   useEffect(() => {
     const fetchVendors = async () => {
@@ -21,9 +23,9 @@ const UserVendorList = () => {
     fetchVendors();
   }, []);
 
-  // Filter vendors by one of the categories for a specific view if needed
-  // For now let's just group them or show all
-  const categories = ['Catering', 'Florist', 'Decoration', 'Lighting'];
+  const displayedVendors = categoryQuery 
+    ? vendors.filter(v => v.category === categoryQuery)
+    : vendors;
 
   return (
     <div className="flex flex-col items-center w-full">
@@ -35,7 +37,7 @@ const UserVendorList = () => {
           </div>
 
           <div className="grid grid-cols-1 md:grid-cols-4 gap-4">
-             {vendors.map(vendor => (
+             {displayedVendors.map(vendor => (
                 <div key={vendor._id} className="bg-blue-600 text-white p-4 rounded-xl flex flex-col items-center min-h-[200px] shadow-lg">
                    <h3 className="text-lg font-bold mb-2">{vendor.name}</h3>
                    <p className="text-xs mb-6 text-center">Contact: {vendor.email}</p>

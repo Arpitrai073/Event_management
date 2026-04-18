@@ -10,6 +10,8 @@ const OrderSchema = new mongoose.Schema({
   totalAmount: { type: Number, required: true },
   paymentMethod: { type: String, enum: ['Cash', 'UPI'], required: true },
   shippingAddress: {
+    name: String,
+    email: String,
     number: String,
     address: String,
     city: String,
