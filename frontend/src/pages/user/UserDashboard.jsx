@@ -4,6 +4,7 @@ import UserVendorList from './UserVendorList';
 import UserProductList from './UserProductList';
 import CartView from './CartView';
 import UserOrderStatus from './UserOrderStatus';
+import GuestList from './GuestList';
 
 const UserDashboardLayout = () => {
   const [cart, setCart] = useState([]);
@@ -76,6 +77,7 @@ const UserDashboardLayout = () => {
           <Route path="/products/:vendorId" element={<UserProductList addToCart={addToCart} />} />
           <Route path="/cart" element={<CartView cart={cart} removeFromCart={removeFromCart} updateQuantity={updateQuantity} setCart={setCart} />} />
           <Route path="/order-status" element={<UserOrderStatus />} />
+          <Route path="/guest-list" element={<GuestList />} />
         </Routes>
       </div>
       
