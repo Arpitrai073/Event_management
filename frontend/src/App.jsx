@@ -5,7 +5,6 @@ import Signup from './pages/auth/Signup';
 import AdminDashboard from './pages/admin/AdminDashboard';
 import VendorDashboard from './pages/vendor/VendorDashboard';
 import UserDashboard from './pages/user/UserDashboard';
-import ChartLink from './components/ChartLink';
 
 function App() {
   return (
@@ -13,7 +12,6 @@ function App() {
       <div className="min-h-screen relative flex flex-col">
         <header className="bg-blue-600 text-white p-4 flex justify-between items-center shadow">
           <Link to="/" className="text-xl font-bold">Event Management System</Link>
-          <ChartLink />
         </header>
         <main className="flex-1 p-6 flex flex-col">
           <Routes>

@@ -14,9 +14,9 @@ const VendorDashboardLayout = () => {
   const user = JSON.parse(localStorage.getItem('user') || '{}');
 
   return (
-    <div className="bg-blue-600 p-6 flex flex-col h-full rounded border border-gray-400 min-h-[600px]">
+    <div className="bg-gray-100 p-6 flex flex-col h-full rounded border border-gray-400 min-h-[600px] shadow-sm">
       <div className="flex justify-center mb-8">
-         <div className="bg-gray-300 px-32 py-4 rounded text-center border border-gray-400 font-bold">
+         <div className="bg-gray-300 px-32 py-4 rounded text-center border border-gray-400 font-bold shadow-sm">
             Welcome <br/> {user.name}
          </div>
       </div>
