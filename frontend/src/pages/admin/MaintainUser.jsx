@@ -1,3 +1,4 @@
+import { useState, useEffect } from 'react';
 import API from '../../api';
 
 const MaintainUser = ({ type }) => {

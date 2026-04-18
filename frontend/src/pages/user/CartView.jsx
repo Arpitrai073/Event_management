@@ -1,3 +1,4 @@
+import { useState } from 'react';
 import API from '../../api';
 
 const CartView = ({ cart, removeFromCart, updateQuantity, setCart }) => {
