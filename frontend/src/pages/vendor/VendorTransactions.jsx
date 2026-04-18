@@ -32,6 +32,16 @@ const VendorTransactions = () => {
     }
   };
 
+  const handleDeleteTransaction = async (orderId) => {
+    if (!window.confirm("Are you sure you want to delete this transaction?")) return;
+    try {
+      await API.delete(`/vendor/orders/${orderId}`);
+      setOrders(orders.filter(o => o._id !== orderId));
+    } catch (error) {
+      alert("Failed to delete transaction");
+    }
+  };
+
   return (
     <div className="flex flex-col items-center mt-6 w-full px-4">
       <div className="bg-blue-300 text-blue-900 border border-blue-400 w-full text-center py-2 mb-8 font-bold rounded shadow">
@@ -66,7 +76,12 @@ const VendorTransactions = () => {
                   </div>
 
                   <div>
-                     <button className="bg-red-600 text-white px-3 py-1 rounded text-xs">Delete</button>
+                     <button 
+                         onClick={() => handleDeleteTransaction(order._id)}
+                         className="bg-red-600 text-white px-3 py-1 rounded text-xs hover:bg-red-700 transition"
+                     >
+                         Delete
+                     </button>
                   </div>
 
                   {updatingId === order._id && (

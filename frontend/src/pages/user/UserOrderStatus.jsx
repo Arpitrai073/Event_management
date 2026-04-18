@@ -25,14 +25,8 @@ const UserOrderStatus = () => {
 
   return (
     <div className="flex flex-col items-center mt-6 w-full px-4">
-      <div className="bg-blue-300 text-blue-900 border border-blue-400 w-full text-center py-2 mb-8 font-bold rounded shadow flex justify-center items-center gap-4">
-         <span>User Order Status</span>
-         <button 
-           onClick={fetchOrders}
-           className="bg-white text-blue-600 px-3 py-1 rounded text-xs border border-blue-400 hover:bg-blue-50"
-         >
-           Refresh Now
-         </button>
+      <div className="bg-blue-300 text-blue-900 border border-blue-400 w-full text-center py-2 mb-8 font-bold rounded shadow">
+         User Order Status
       </div>
 
       <div className="bg-gray-300 p-4 rounded border border-gray-400 w-full max-w-6xl shadow-xl">

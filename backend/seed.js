@@ -22,12 +22,12 @@ const importData = async () => {
 
     const users = await User.insertMany([
       { name: 'Admin One', email: 'admin@test.com', password: pass, role: 'Admin' },
-      { 
-        name: 'Vendor Catering', email: 'vendor1@test.com', password: pass, role: 'Vendor', 
+      {
+        name: 'Vendor Catering', email: 'vendor1@test.com', password: pass, role: 'Vendor',
         category: 'Catering', membership: { duration: 6, status: 'Active', startDate: new Date() }
       },
-      { 
-        name: 'Vendor Florist', email: 'vendor2@test.com', password: pass, role: 'Vendor', 
+      {
+        name: 'Vendor Florist', email: 'vendor2@test.com', password: pass, role: 'Vendor',
         category: 'Florist', membership: { duration: 12, status: 'Active', startDate: new Date() }
       },
       { name: 'User One', email: 'user@test.com', password: pass, role: 'User' }

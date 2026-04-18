@@ -32,6 +32,24 @@ router.post('/products', protect, vendor, async (req, res) => {
   }
 });
 
+// Update product
+router.put('/products/:id', protect, vendor, async (req, res) => {
+  try {
+    const product = await Product.findOne({ _id: req.params.id, vendor: req.user._id });
+    if (!product) return res.status(404).json({ message: 'Product not found' });
+
+    const { name, price, imageUrl } = req.body;
+    if (name) product.name = name;
+    if (price) product.price = price;
+    if (imageUrl !== undefined) product.imageUrl = imageUrl;
+
+    const updated = await product.save();
+    res.json(updated);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
 // Delete product
 router.delete('/products/:id', protect, vendor, async (req, res) => {
   try {
@@ -68,6 +86,17 @@ router.put('/order-status/:id', protect, vendor, async (req, res) => {
     order.status = status;
     await order.save();
     res.json(order);
+  } catch (error) {
+    res.status(500).json({ message: error.message });
+  }
+});
+
+// Delete order
+router.delete('/orders/:id', protect, vendor, async (req, res) => {
+  try {
+    const order = await Order.findByIdAndDelete(req.params.id);
+    if (!order) return res.status(404).json({ message: 'Order not found' });
+    res.json({ message: 'Order deleted successfully' });
   } catch (error) {
     res.status(500).json({ message: error.message });
   }

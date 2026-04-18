@@ -10,7 +10,7 @@ const Home = () => {
         {/* Admin Card */}
         <div className="bg-white rounded-lg shadow-md p-6 flex flex-col items-center border border-gray-200">
           <h2 className="text-xl font-bold mb-4 text-blue-700">Admin</h2>
-          <p className="text-gray-500 mb-6 text-center text-sm">Manage users, vendors, reports, and system settings.</p>
+          <p className="text-gray-500 mb-6 text-center text-sm">Manages users and vendors</p>
           <div className="flex w-full gap-3">
              <Link to="/login/admin" className="flex-1 bg-blue-600 hover:bg-blue-700 text-white py-2 rounded text-center">Login</Link>
           </div>

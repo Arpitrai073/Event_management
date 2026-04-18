@@ -29,27 +29,49 @@ const VendorItemsList = () => {
     }
   };
 
+  const [editingId, setEditingId] = useState(null);
+  const [editForm, setEditForm] = useState({ name: '', price: '', imageUrl: '' });
+
+// ... inside the component
+  const handleUpdateClick = (product) => {
+    if (editingId === product._id) {
+      // Save changes
+      updateProduct(product._id);
+    } else {
+      // Enter edit mode
+      setEditingId(product._id);
+      setEditForm({ name: product.name, price: product.price, imageUrl: product.imageUrl });
+    }
+  };
+
+  const updateProduct = async (id) => {
+    try {
+      const res = await API.put(`/vendor/products/${id}`, editForm);
+      setProducts(products.map(p => p._id === id ? res.data : p));
+      setEditingId(null);
+    } catch (error) {
+      alert("Update failed");
+    }
+  };
+
   return (
     <div className="flex flex-col items-center mt-10">
       <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 w-full max-w-6xl">
         {products.map(product => (
           <div key={product._id} className="bg-gray-300 p-4 rounded border border-gray-400 flex flex-col items-center shadow">
+            
             <div className="bg-blue-600 w-full text-center py-2 text-white mb-4 rounded">
               {product.name}
             </div>
             
-            <div className="bg-white w-full h-32 flex items-center justify-center mb-4 border border-gray-400">
-               {product.imageUrl ? <img src={product.imageUrl} className="h-full object-contain" /> : "No Image"}
+            <div className="bg-white w-full h-32 flex flex-col items-center justify-center mb-4 border border-gray-400 p-2 overflow-hidden">
+              {product.imageUrl ? <img src={product.imageUrl} className="h-full object-contain" alt={product.name} /> : "No Image"}
             </div>
 
             <div className="bg-blue-200 w-full text-center py-1 mb-4 border border-blue-400 font-bold">
                Rs. {product.price} /-
             </div>
 
-            <div className="flex w-full gap-2">
-               <button onClick={() => deleteProduct(product._id)} className="flex-1 bg-blue-600 text-white py-1 rounded text-sm hover:bg-red-600">Delete</button>
-               <button className="flex-1 bg-blue-600 text-white py-1 rounded text-sm">Update</button>
-            </div>
           </div>
         ))}
       </div>
